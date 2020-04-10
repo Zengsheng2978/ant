@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <script type="text/javascript">
+
+   var arr = [
+    {"name":"未知","value":63},
+    {"name":"北京","value":23},
+    {"name":"上海","value":13},
+    {"name":"天津","value":23},
+    {"name":"重庆","value":135},
+    {"name":"香港","value":45},
+    {"name":"澳门","value":63},
+    {"name":"河北省","value":93},
+    {"name":"山西省","value":132},
+    {"name":"内蒙古","value":124},
+    {"name":"辽宁省","value":94},
+    {"name":"新疆","value":67},
+    {"name":"其他","value":9},
+    {"name":"台湾省","value":14}
+   ];
+
+   function Compare(val){       // val表示要通过那个参数来对比呢
+    return function(a,b){
+     return b[val] - a[val];   // 倒序 b[val]-a[val]    正序  a[val] - b[val]
+    }
+   }
+   var aaa = arr.sort(Compare('value'));
+   console.log(aaa);
+  </script>
+ </body>
+</html>

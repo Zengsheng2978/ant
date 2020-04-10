@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+  </head>
+  <body>
+<div>
+
+</div>
+ 
+ <script>
+   //1 时间戳（13位）转正常时间   157 179 175 6000》2019-10-11 19:05:02
+//参数时间搓必须为number 和13位
+function formatDateTime(inputTime) {
+	let date = new Date(inputTime*1);
+    console.log(date);
+    //var date = new Date(inputTime);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    m = m < 10 ? ('0' + m) : m;
+    var d = date.getDate();
+    d = d < 10 ? ('0' + d) : d;
+    var h = date.getHours();
+    h = h < 10 ? ('0' + h) : h;
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    minute = minute < 10 ? ('0' + minute) : minute;
+    second = second < 10 ? ('0' + second) : second;
+    return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+};
+console.log(formatDateTime((1470781856000)));
+
+//2  将UTC时间(2018-07-03T10:18:58.000Z)转换为北京时间
+//utc时间肯定是字符串形式
+function formatUTC(utc_datetime) {
+    // 转为正常的时间格式 年-月-日 时:分:秒
+    var T_pos = utc_datetime.indexOf('T');
+    var Z_pos = utc_datetime.indexOf('Z');
+    var year_month_day = utc_datetime.substr(0, T_pos);
+    var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
+    var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+    // 处理成为时间戳
+    timestamp = new Date(Date.parse(new_datetime));
+    timestamp = timestamp.getTime();
+    timestamp = timestamp / 1000;
+    // 增加8个小时，北京时间比utc时间多八个时区
+    var timestamp = timestamp + 8 * 60 * 60;
+    // 时间戳转为时间
+    var beijing_datetime = new Date(parseInt(timestamp) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+    return beijing_datetime;
+}
+
+console.log(formatUTC('2018-07-03T10:18:58.000Z'))
+// >>> >> 2018 / 7 / 3下午6:18:58
+
+//3   // JS格式化Thu May 12 2017 08:00:00 GMT+0800 (中国标准时间)转换  "2019-11-12 05:00:00" 配合checkTime函数
+//时间参数肯定是字符串形式
+   function data_value(date) {
+    var date = new Date(date);
+    return  date_value=date.getFullYear() + '-' + checkTime(date.getMonth() + 1) + '-' + checkTime(date.getDate()) + ' ' + checkTime(date.getHours()) + ':' + checkTime(date.getMinutes()) + ':' + checkTime(date.getSeconds());
+   }
+   function checkTime(i){
+       if (i<10){
+           i="0" + i
+       }
+       return i;
+    }
+    console.log(data_value('Thu May 12 2017 08:00:00 GMT+0800 (中国标准时间)'));
+   
+   
+   //运用一下
+   let result=['Thu May 12 2017 08:00:00 GMT+0800 (中国标准时间)'];
+   let zx = [];
+	for (let i = 0; i < result.length; i++) {
+        zx[i]=data_value(result[i])
+	}
+    console.log(zx);
+ </script>
+  </body>
+</html>

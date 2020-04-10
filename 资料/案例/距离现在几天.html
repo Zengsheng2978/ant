@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+  </head>
+  <body>
+<div>
+
+</div>
+
+ <script>
+
+     function data_value(date) {
+         var date = new Date(date);
+         let date_value;
+         return  date_value=date.getFullYear() + '' + checkTime(date.getMonth() + 1) + '' + checkTime(date.getDate()) + '' + checkTime(date.getHours()) + '' + checkTime(date.getMinutes()) ;
+     }
+     function checkTime(i){
+         if (i<10){
+             i="0" + i
+         }
+         return i;
+     }
+     // 距离现在几天
+     function get_beforday(day) {
+        let day_range = [];
+        for(var i = 0;i<=day;i++){
+            day_range.unshift(new Date(new Date()
+                .setDate(new Date().getDate()-i)))
+        }
+        // console.log(day_range)
+         // Mon Nov 25 2019 10:42:42 GMT+0800 (中国标准时间) 转换为201911251042
+        for (let i = 0; i < day_range.length; i++) {
+            day_range[i]=data_value(day_range[i])
+        }
+        console.log(day_range)
+        let ar=[];
+        ar[0]=day_range[0];
+        ar[1]=day_range[day_range.length-1]
+        return ar
+    }
+   console.log(get_beforday(1))
+ </script>
+  </body>
+</html>

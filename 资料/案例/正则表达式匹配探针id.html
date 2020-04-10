@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+<script type="text/javascript">
+//固定的secadd字符串开头  (\d{4})  四个任意数字
+   var reg = /^(secadd)+[1-9]\d{3}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(20|21|22|23|[0-1]\d)[0-5]\d[0-5]\d[0-5]\d(\d{4})$/;
+var regExp = new RegExp(reg);
+if(regExp.test('secadd201401011200005999991')){console.log('正确')}else{
+　　console.log("错误");
+　　
+　　}
+
+
+//     \s 为空格
+// var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/;
+// var regExp = new RegExp(reg);
+// if(!regExp.test('2014-01-01 12:00:00')){
+// 　　alert("时间格式不正确,正确格式为: 2014-01-01 12:00:00 ");
+// 　　
+// 　　}
+</script>
+
+ </body>
+</html>

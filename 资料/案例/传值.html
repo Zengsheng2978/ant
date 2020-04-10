@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react 组件通信</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdn.bootcss.com/EventEmitter/5.2.6/EventEmitter.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        var ee = new EventEmitter();
+
+        class Father extends React.Component{
+            constructor(){
+                super()
+                this.state={
+                    style:{color:'black'}
+                }
+            }
+            
+            componentDidMount(){
+                this.eventE1 = ee.addListener("callMe",(color)=>{
+                    this.setState({
+                        style:{color:color}
+                    })
+                    console.log(color)
+                })
+            }
+
+            
+
+            render(){
+                return (
+                    <div>
+                        <h1 style={this.state.style}>兄嘚1号</h1>
+                    </div>
+                )
+            }
+        }
+
+        class Father2 extends React.Component{
+            subFn(color){
+                return ()=>{
+                    ee.emit("callMe",color)
+                }
+            }
+
+            render(){
+                return (
+                    <div>
+                        <h1>兄嘚2号</h1>
+                        <button onClick={this.subFn('red')}>兄嘚1变red</button>
+                        <button onClick={this.subFn('blue')}>兄嘚1变blue</button>
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <div>
+                <Father />
+                <Father2 />
+            </div>,
+            document.getElementById("example")
+        )
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+ </head>
+ <body>
+  <script type="text/javascript">
+     function fommat({arrayList, pidStr = 'pid', idStr = 'id', childrenStr = 'children'}) {
+           let listOjb = {}; // 用来储存{key: obj}格式的对象
+           let treeList = []; // 用来储存最终树形结构数据的数组
+           // 将数据变换成{key: obj}格式，方便下面处理数据
+           for (let i = 0; i < arrayList.length; i++) {
+               listOjb[arrayList[i][idStr]] = arrayList[i]
+           }
+           // 根据pid来将数据进行格式化
+           for (let j = 0; j < arrayList.length; j++) {
+               // 判断父级是否存在
+               let haveParent = listOjb[arrayList[j][pidStr]] 
+               if (haveParent) {
+                   // 如果有没有父级children字段，就创建一个children字段
+                   !haveParent[childrenStr] && (haveParent[childrenStr] = [])
+                   // 在父级里插入子项
+                   haveParent[childrenStr].push(arrayList[j])
+               } else {
+                   // 如果没有父级直接插入到最外层
+                   treeList.push(arrayList[j])
+               }
+           }
+           return treeList
+       }
+            
+ 
+        // 测试数据
+        var menu_list = [{"id":2,"name":"ALL","pid":null,"userid":3,"principal":111},{"id":80,"name":"test1","pid":2,"userid":58,"principal":null},{"id":81,"name":"dfaf","pid":2,"userid":57,"principal":null},{"id":82,"name":"test2","pid":81,"userid":58,"principal":null},{"id":83,"name":"","pid":2,"userid":58,"principal":null},{"id":84,"name":"","pid":2,"userid":58,"principal":null},{"id":85,"name":"dggfgdfgd","pid":2,"userid":58,"principal":null}]
+ 
+    // 输出
+    console.log(
+           fommat({
+               arrayList: menu_list,
+               pidStr: 'pid'
+           })
+       )       
+  </script>
+ </body>
+</html>

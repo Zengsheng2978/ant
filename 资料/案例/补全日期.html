@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+  </head>
+  <body>
+<div>
+
+</div>
+ 
+ <script>
+
+   let arr=  [{"count":1260,"hour":18},{"count":1453,"hour":0},{"count":1447,"hour":1},{"count":1427,"hour":12},{"count":1340,"hour":17}];
+   console.log(arr);
+
+   function completion(ar) {
+       var date = new Date();
+       var year = date.getFullYear();  //获取年
+       var month = date.getMonth() + 1; //获取月
+       var day = date.getDate(); //获取日
+       if (month < 10) {
+           month = "0" + month;
+       }
+       if (day < 10) {
+           day = "0" + day;
+       }
+       let today = year + "-" + month + "-" + day;  //今天
+       let Yesterday = year + "-" + month + "-" + (day-1);  //昨天
+       let fge;  //找到指定项的索引
+       for (let i=0;i<ar.length;i++){
+           if (ar[i].hour<10){
+               ar[i].hour="0"+ar[i].hour
+           }
+           if (ar[i].hour=="00"){
+               fge=i
+           }
+       }
+       console.log(fge);
+       for (let i=0;i<fge;i++){
+           ar[i].hour=Yesterday+" "+ar[i].hour+":00:00"
+       }
+       for (let i=fge;i<arr.length;i++){
+           ar[i].hour=today+" "+ar[i].hour+":00:00"
+       }
+       console.log(ar);
+       let oneHour = 60 * 60 * 1000;
+
+       let now = new Date(arr[0].hour);
+       console.log(now);
+       let max = new Date(arr[arr.length - 1].hour);
+       console.log(max);
+       let result = [];
+       while (!(max < now)) {
+           result.push({"count":0,"hour":now})
+           now = new Date(now.getTime() + oneHour);
+       }
+       console.log(result);
+       // JS格式化Thu May 12 2017 08:00:00 GMT+0800 (中国标准时间)转换  配合checkTime函数
+       let zx=[];
+       for (let i=0;i<result.length;i++){
+           zx[i] ={
+               count:0,hour:((result[i].hour).getFullYear() + '-' + ((result[i].hour).getMonth() + 1) + '-' + (result[i].hour).getDate() + ' ' + checkTime((result[i].hour).getHours()) + ':' + checkTime((result[i].hour).getMinutes()) + ':' + checkTime((result[i].hour).getSeconds()))
+           }
+
+       }
+       for (let t=0;t<zx.length;t++){
+           for (let i=0;i<ar.length;i++){
+               if(zx[t].hour==ar[i].hour){
+                   zx[t].count=ar[i].count
+               }
+           }
+       }
+       return zx
+   }
+   function checkTime(i){
+       if (i<10){
+           i="0" + i
+       }
+       return i;
+   }
+
+   console.log(completion(arr)) ;
+
+
+ </script>
+  </body>
+</html>

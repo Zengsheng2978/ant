@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>React App</title>
+  </head>
+  <body>
+<div>
+
+</div>
+
+ <script>
+
+ 
+var arr = {
+  1267: '成都大学附属医院',
+  1272: '成都军区机关医院',
+  1206: '成都市第二人民医院',
+  1256: '成都市第六人民医院',
+}
+ 
+function findKey(obj, key, compare = (a, b) => a === b) {
+  return Object.values(obj).find(k => compare(obj[k], key))
+}
+
+console.log(findKey(arr, '1267'));
+ </script>
+  </body>
+</html>
